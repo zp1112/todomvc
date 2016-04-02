@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <link href="/styles/reset.css" rel="stylesheet" type="text/css" />
+    <link href="/styles/index/style.css" rel="stylesheet" type="text/css" />
+    <script src="/js.js" type="text/javascript"></script>
+</head>
+<body>
+<div class="wrap">
+<div class="box todos">
+    <h1>Todo</h1>
+    <h2 class="box">待办事项</h2>
+    <ul>
+        <% for (var key in tasks) {
+        var task = tasks[key];
+        var classname = task.finished ? 'class="finished"' : '';
+        %>
+        <li <%- classname %>>
+        <% if (!task.finished) { %>
+        <%= task.title %>
+        &nbsp;
+        <a href="/task/<%- key.replace('task:','') %>/finish">完成</a>
+            <a href="/task/<%- key.replace('task:','') %>/delete">删除</a>
+            <a href="/task/<%- key.replace('task:','') %>/edit" class="edit">编辑</a>
+        <% } else { %>
+        <del><%= task.title %></del>
+        &nbsp;
+        <a href="/task/<%- key.replace('task:','') %>/unfinish">恢复</a>
+            <a href="/task/<%- key.replace('task:','') %>/delete">删除</a>
+            <a href="/task/<%- key.replace('task:','') %>/edit" class="edit">编辑</a>
+        <% } %>
+        </li>
+        <% } %>
+    </ul>
+</div>
+    <div class="box post">
+        <h2>新增</h2>
+        <form action="/task" method="post" id="post_new">
+            <p><textarea  name="title" class="long_txt" rows="3" cols="20"></textarea></p>
+            <p><input type="submit" class="submit" value="添加" /></p>
+        </form>
+    </div>
+    </div>
+</body>
+</html>

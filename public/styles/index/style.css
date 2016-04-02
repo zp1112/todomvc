@@ -1,0 +1,53 @@
+body,html,ul{padding: 0;margin: 0;}
+.wrap{
+    width: 60%;
+    margin: 100px auto;
+    padding: 20px;
+}
+.box{
+
+}
+.todos h1{
+    border-bottom: 1px solid #8A6343;
+}
+h1{
+    font-size: 50px;
+}
+h2{
+    color: #00d4b4;
+    font-size: 40px;
+}
+ul li{
+    list-style: none;
+    font-weight: bolder;
+    padding: 20px 0;
+    border-bottom: 1px dotted #555555;
+}
+ul li a{
+    color: #555555;
+}
+ul li a:hover{
+    color: #00d4b4;
+}
+.long_txt{
+    border: 1px solid #00d4b4;
+    border-radius: 10px;
+    outline: none;
+    width: 400px;
+    height: 60px;
+    padding: 1em;
+    font-size: 20px;
+}
+.submit{
+    width: 150px;
+    height: 80px;
+    background: #00d4b4;
+    border: none;
+    padding: 10px 5px;
+    display: block;
+    font-size: 30px;
+    cursor: pointer;
+}
+.submit:hover{
+    background: #0b97c4;
+}
