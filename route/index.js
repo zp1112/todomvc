@@ -10,6 +10,7 @@ global.redirectFunc = function (res) {
 };
 
 var model = require('../model/model');
+var format=require('date-format');
 
 module.exports = function (app) {
   app.get('/', function (req, res) {
@@ -25,7 +26,8 @@ module.exports = function (app) {
 
   app.post('/task', function (req, res) {
     var title = req.body.title;
-    model.addTask(title).then(redirectFunc(res)).catch(function (err) {
+    var time=format('yyyy-MM-dd hh:mm',new Date());
+    model.addTask(title,time).then(redirectFunc(res)).catch(function (err) {
       console.error(err);
     });
   })

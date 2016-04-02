@@ -11,6 +11,7 @@
   "dependencies": {
     "body-parser": "^1.15.0",
     "connect": "^3.4.1",
+    "date-format": "0.0.2",
     "ejs": "^2.4.1",
     "express": "^4.13.4",
     "node-uuid": "^1.4.7",

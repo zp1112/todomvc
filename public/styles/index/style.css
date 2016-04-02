@@ -51,3 +51,8 @@ ul li a:hover{
 .submit:hover{
     background: #0b97c4;
 }
+.date{
+    display: inline-block;
+    padding: 0 10px;
+    color: #00d4b4;
+}

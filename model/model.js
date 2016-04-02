@@ -1,10 +1,11 @@
 var uuid = require('node-uuid');
 var client = require('./redis');
 
-exports.addTask = function (name) {
+exports.addTask = function (name,time) {
   var value = {
     title: name,
-    finished: 0
+    finished: 0,
+    create_at:time
   };
   var key = 'task:' + parseInt(new Date() / 1000) + uuid.v4();
   return client.set(key, value);
