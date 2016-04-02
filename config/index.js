@@ -4,5 +4,14 @@ module.exports={
   },
   server:{
     port:3000
-  }
+  },
+  user:{
+    candy:{
+      username:"candy",
+      password:111111
+    },
+    willin:{
+      username:"willin",
+      password:222222
+    }}
 };

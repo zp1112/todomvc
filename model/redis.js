@@ -1,10 +1,20 @@
 var redis = require('redis');
 var common = require('../common/common');
 var config=require('../config/index');
+var uuid = require('node-uuid');
 
 var client = redis.createClient({
-  port: config.redis.port
+  port: config.redis.port,
+  db:1
 });
+var client2 = redis.createClient({
+  port: config.redis.port,
+  db:2
+});
+exports.setuser=function (username,password) {
+  client2.set('user:'+username,JSON.stringify({username:username,password:password}));
+}
+
 
 exports.set = function (key, val) {
   var defer = common.getDefer();
@@ -27,7 +37,18 @@ var get = function (key) {
   });
   return defer.promise;
 };
+var get2 = function (key) {
+  var defer = common.getDefer();
+  client2.get(key, function (err, res) {
+    if (err) {
+      defer.reject(err);
+    }
+    defer.resolve(JSON.parse(res || '{}'));
+  });
+  return defer.promise;
+};
 exports.get = get;
+exports.get2 = get2;
 
 exports.delete = function (key) {
   var defer = common.getDefer();
@@ -40,9 +61,9 @@ exports.delete = function (key) {
   return defer.promise;
 };
 
-exports.list = function () {
+exports.list = function (user) {
   var defer = common.getDefer();
-  client.keys('task:*', function (err, res) {
+  client.keys(user+':*', function (err, res) {
     res.sort();
     if (err) {
       defer.reject(err);

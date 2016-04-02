@@ -1,13 +1,13 @@
 var uuid = require('node-uuid');
 var client = require('./redis');
 
-exports.addTask = function (name,time) {
+exports.addTask = function (name,time,user) {
   var value = {
     title: name,
     finished: 0,
     create_at:time
   };
-  var key = 'task:' + parseInt(new Date() / 1000) + uuid.v4();
+  var key = user+':' + parseInt(new Date() / 1000) + uuid.v4();
   return client.set(key, value);
 };
 
@@ -36,6 +36,6 @@ exports.deleteTask = function (key) {
   return client.delete(key);
 };
 
-exports.listTask = function () {
-  return client.list();
+exports.listTask = function (user) {
+  return client.list(user);
 };
