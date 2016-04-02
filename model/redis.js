@@ -44,7 +44,6 @@ exports.list = function () {
   var defer = common.getDefer();
   client.keys('task:*', function (err, res) {
     res.sort();
-    console.log(res);
     if (err) {
       defer.reject(err);
     }

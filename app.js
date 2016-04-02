@@ -7,7 +7,7 @@ var config=require('./config');
 app.set('views','./views');
 app.set('view engine','ejs');
 app.use(express.static(__dirname + '/public'));
-// app.use(bodyParser());
+app.use(bodyParser());
 
 
 var server = app.listen(config.server.port,function(){

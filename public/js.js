@@ -12,26 +12,26 @@ window.onload=function () {
   for(var i=0;i<editButton.length;i++){
     (function(i){
       var href=editButton[i].href;//使用立即执行的匿名函数避免闭包的副作用
-      editButton[i].addEventListener("click", function(e) { //给ul绑定事件
+      editButton[i].addEventListener("click", function(e) { //
         e.preventDefault();
         post_h2.innerHTML="编辑";
         form.action=href;
         submit.value="编辑完成";
-        var p=document.createElement('p');
-        var input=document.createElement('input');
-        input.value="取消";
-        input.type="button";
-        input.className="cancel";
-        p.appendChild(input);
-        form.appendChild(p);
-
+        // var p=document.createElement('p');
+        // var input=document.createElement('input');
+        // input.value="取消";
+        // input.type="button";
+        // input.className="cancel";
+        // p.appendChild(input);
+        // form.appendChild(p);
         var cancel=document.getElementsByClassName('cancel')[0];
+        cancel.style.display='block';
         cancel.onclick=function () {
           post_h2.innerHTML="新增";
           form.action="/task";
           submit.value="添加";
           textarea.value='';
-          form.removeChild(p);
+          this.style.display='none';
         }
       });
     })(i);
