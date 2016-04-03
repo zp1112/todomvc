@@ -9,7 +9,7 @@
 <body>
 <div class="wrap">
 <div class="box todos">
-    <h1>Todo<span style="font-size: 17px;" class="err_success"><%- message %></span></h1><a href="/logout" class="logout">登出</a>
+    <h1>Todo<h3>Hi <%- user.username %> !</h3><span style="font-size: 17px;" class="err_success"><%- message %></span></h1><a href="/logout" class="logout">登出</a>
     <h2 class="box">待办事项</h2>
     <ul>
         <% for (var key in tasks) {
