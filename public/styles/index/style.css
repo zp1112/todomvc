@@ -96,3 +96,7 @@ ul li a:hover{
 .submit:hover,#login .register:hover,.cancel:hover,.logout:hover{
     background: #0b97c4;
 }
+.err_success{
+    color: red;
+    font-weight: bolder;
+}

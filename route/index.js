@@ -1,13 +1,7 @@
 /**
  * Created by Willin on 2016-4-1.
  */
-global.editState = false;
-global.redirectFunc = function (res) {
-  res.writeHeader(302, {
-    Location: '/'
-  });
-  res.end();
-};
+
 var client=require('../model/redis');
 var model = require('../model/model');
 var format=require('date-format');
@@ -21,11 +15,11 @@ var userschema=Joi.object().keys({
 })
 
 module.exports = function (app) {
-  app.get('/register',function (req,res) {
+  app.get('/register',filter.notAuthentication,function (req,res) {
     res.render('register');
   })
   
-  app.post('/doregister',function (req,res) {
+  app.post('/doregister',filter.notAuthentication,function (req,res) {
     var username=req.body.username;
     var password=req.body.password;
     Joi.validate({username:username,password:password},userschema,function (err,value) {
@@ -61,10 +55,10 @@ module.exports = function (app) {
     });
   });
   
-  app.get('/login',function (req,res) {
+  app.get('/login',filter.notAuthentication,function (req,res) {
     res.render('login');
   });
-  app.post('/dologin',function (req,res) {
+  app.post('/dologin',filter.notAuthentication,function (req,res) {
     var username=req.body.username;
     var pwd=req.body.password;
     client.get2('user:'+username).then(function (result,err) {

@@ -15,3 +15,9 @@ module.exports={
       password:222222
     }}
 };
+global.redirectFunc = function (res) {
+  res.writeHeader(302, {
+    Location: '/'
+  });
+  res.end();
+};
