@@ -10,11 +10,9 @@ global.redirectFunc = function (res) {
 };
 var client=require('../model/redis');
 
-
 var model = require('../model/model');
 var format=require('date-format');
 var filter=require('../lib/filter');
-var config=require('../config');
 
 module.exports = function (app) {
   app.get('/register',function (req,res) {
@@ -24,8 +22,14 @@ module.exports = function (app) {
     var username=req.body.username;
     var password=req.body.password;
     if(username!==''&&password!==''){
-      client.setuser(username,password);
+      client.setuser(username,password);//db2
       res.redirect('/login');
+    }
+    else{
+      console.log('please enter right username and password');
+      setTimeout(function () {
+        res.redirect('/register');
+      },1000)
     }
   })
   app.get('/', filter.authorize,function (req, res) {

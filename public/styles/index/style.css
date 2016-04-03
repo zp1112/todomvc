@@ -41,7 +41,49 @@ ul li a:hover{
     padding: 1em;
     font-size: 20px;
 }
-.submit{
+
+.date{
+    display: inline-block;
+    padding: 0 10px;
+    color: #00d4b4;
+}
+.date,li a{float: right}
+.finished{
+    color: crimson;
+}
+.wrap_login,.wrap_register{
+    width: 1000px;
+    margin: 100px auto;
+}
+#login input:not(.submit),#register input:not(.submit){
+    border: 1px solid #00d4b4;
+    border-radius: 10px;
+    outline: none;
+    width: 150px;
+    height: 20px;
+    padding: 0.5em;
+    font-size: 20px;
+}
+#login label,#register label{
+    font-size: 20px;
+    font-weight: bolder;
+    margin-right: 30px;
+}
+#login .submit,#register .submit{
+    height: 60px;
+}
+#login .register,.logout{
+    width: 150px;
+    background: #00d4b4;
+    border: none;
+    padding: 10px 0;
+    display: inline-block;
+    font-size: 30px;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+}
+.submit,.cancel{
     width: 150px;
     height: 80px;
     background: #00d4b4;
@@ -51,15 +93,6 @@ ul li a:hover{
     font-size: 30px;
     cursor: pointer;
 }
-.submit:hover{
+.submit:hover,#login .register:hover,.cancel:hover,.logout:hover{
     background: #0b97c4;
-}
-.date{
-    display: inline-block;
-    padding: 0 10px;
-    color: #00d4b4;
-}
-.date,li a{float: right}
-.finished{
-    color: crimson;
 }

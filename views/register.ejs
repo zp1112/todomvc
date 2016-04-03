@@ -2,13 +2,17 @@
 <html>
 <head>
     <meta charset="utf-8">
+    <link href="/styles/index/style.css" rel="stylesheet" type="text/css" />
 </head>
 <body>
-<h1>请登录</h1>
-<form action="/doregister" method="post" id="post_new">
-    <label for="username">username:</label><input type="text" class="long_txt" name="username"/>
-    <label for="pwd">password:</label><input type="password" class="long_txt" name="password"/>
-    <p><input type="submit" class="submit" value="注册" /></p>
-</form>
+<div class="wrap_register">
+    <h1>请注册</h1>
+    <form action="/doregister" method="post" id="register">
+        <label for="username">username:</label><input type="text" name="username"/>
+        <label for="pwd">password:</label><input type="password" name="password"/>
+        <p><input type="submit" class="submit" value="注册" /></p>
+    </form>
+</div>
+
 </body>
 </html>
