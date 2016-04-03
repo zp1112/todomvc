@@ -22,8 +22,11 @@ module.exports = function (app) {
     var username=req.body.username;
     var password=req.body.password;
     if(username!==''&&password!==''){
-      client.setuser(username,password);//db2
-      res.redirect('/login');
+      client.setuser(username,password).then(function (result) {
+        res.redirect('/login');
+      }).catch(function (err) {
+        console.error(err);
+      });//db2
     }
     else{
       console.log('please enter right username and password');

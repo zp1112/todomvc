@@ -12,7 +12,14 @@ var client2 = redis.createClient({
   db:2
 });
 exports.setuser=function (username,password) {
-  client2.set('user:'+username,JSON.stringify({username:username,password:password}));
+  var defer = common.getDefer();
+  client2.set('user:'+username,JSON.stringify({username:username,password:password}),function (err,res) {
+    if(err){
+      defer.reject(err);
+    }
+    defer.resolve(res);
+  });
+  return defer.promise;
 }
 
 

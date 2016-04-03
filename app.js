@@ -13,7 +13,8 @@ app.use(express.static(__dirname + '/public'));
 app.use(bodyParser());
 app.use(cookieParser('userid'));
 app.use(session({
-  secret: 'express is powerful'
+  secret: 'express is powerful',
+  cookie:{maxAge:30000}
 }));
 
 
