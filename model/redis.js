@@ -1,5 +1,5 @@
 var redis = require('redis');
-var common = require('../common/common');
+var common = require('../common/index');
 var config=require('../config/index');
 var uuid = require('node-uuid');
 

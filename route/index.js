@@ -9,44 +9,57 @@ global.redirectFunc = function (res) {
   res.end();
 };
 var client=require('../model/redis');
-
 var model = require('../model/model');
 var format=require('date-format');
 var filter=require('../lib/filter');
+var Joi = require('joi');
+
+
+var userschema=Joi.object().keys({
+  username: Joi.string().alphanum().min(2).max(32),
+  password:Joi.string().min(6).max(32)
+})
 
 module.exports = function (app) {
   app.get('/register',function (req,res) {
     res.render('register');
   })
+  
   app.post('/doregister',function (req,res) {
     var username=req.body.username;
     var password=req.body.password;
-    if(username!==''&&password!==''){
-      client.setuser(username,password).then(function (result) {
-        res.redirect('/login');
-      }).catch(function (err) {
-        console.error(err);
-      });//db2
-    }
-    else{
-      console.log('please enter right username and password');
-      setTimeout(function () {
-        res.redirect('/register');
-      },1000)
-    }
+    Joi.validate({username:username,password:password},userschema,function (err,value) {
+      if(err){
+        req.session.error=new RegExp("password").test(err.message)?'密码格式不对':'用户名格式不对';
+          return res.redirect('/register');
+      }else {
+        client.get(username).then(function (result) {
+        if(result){
+          req.session.error='用户已存在';
+          return res.redirect('/register');
+        }else{
+          client.setuser(username, password).then(function (result) {
+            req.session.success='注册成功';
+            res.redirect('/login');
+          }).catch(function (err) {
+            console.error(err);
+          });//db2
+        }
+      })
+      }
+    })
   })
   app.get('/', filter.authorize,function (req, res) {
     var user=req.session.user_id;
     
     model.listTask(user).then(function (result) {
-      // console.log(result);
       res.render('index', {
         tasks: result
-      }).catch(function (err) {
+      });
+    }).catch(function(err) {
         console.error(err);
-      })
     });
-  })
+  });
   
   app.get('/login',function (req,res) {
     res.render('login');
@@ -54,21 +67,14 @@ module.exports = function (app) {
   app.post('/dologin',function (req,res) {
     var username=req.body.username;
     var pwd=req.body.password;
-    if(!username||(!pwd)){
-      throw err;
-    }
     client.get2('user:'+username).then(function (result,err) {
       if(!result.username){
-        console.log('用户不存在！');
-        setTimeout(function () {
-          res.redirect('/login');
-        },1000)
+        req.session.error='用户不存在';
+          return res.redirect('/login');
       }
       else if(result.password!==pwd){
-        console.log('密码错误');
-        setTimeout(function () {
-          res.redirect('/login');
-        },1000)
+        req.session.error='密码不正确';
+        res.redirect('/login');
       }
       else{
         req.session.user_id =username;
